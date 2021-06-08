@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/06/05 12:34:47 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/06/08 10:33:17 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,8 @@ BOLD="\033[1m"
 
 if ! command -v ruby &> /dev/null
 then
-	echo "Ruby not found. Aborting"
-	echo "To install try: 'sudo apt-get install ruby'"
+	echo -e "${RED}${BOLD}Ruby not found. Aborting"
+	echo -e "If using Linux, try 'sudo apt-get install ruby' to install${RESET}"
 	exit
 fi
 
