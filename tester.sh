@@ -26,6 +26,13 @@ MUTED="\033[1;30m"
 RESET="\033[0m"
 BOLD="\033[1m"
 
+if ! command -v ruby &> /dev/null
+then
+	echo "Ruby not found. Aborting"
+	echo "To install try: 'sudo apt-get install ruby'"
+	exit
+fi
+
 if ! command -v $CHECKER &> /dev/null
 then
 	echo -en "${RED}${BOLD}\n./checker is not working.\nSo this script will only check the number of operations\n${RESET}"
