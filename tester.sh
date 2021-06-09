@@ -14,7 +14,6 @@
 
 NUM_TESTS=100
 PUSH_SWAP=./push_swap
-CHECKER=./checker
 CKER=1
 RET_CKER="is not working"
 
@@ -31,6 +30,13 @@ then
 	echo -e "${RED}${BOLD}Ruby not found. Aborting"
 	echo -e "If using Linux, try 'sudo apt-get install ruby' to install${RESET}"
 	exit
+fi
+
+if [ "$(eval uname)" == "Linux" ]
+then
+	CHECKER=./checker_linux
+else
+	CHECKER=./checker
 fi
 
 if ! command -v $CHECKER &> /dev/null
