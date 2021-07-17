@@ -5,7 +5,7 @@ Script to test Push Swap project
 
 ### Usage
 
-```
+```bash
 bash tester.sh
 ```
 
@@ -17,3 +17,27 @@ You can also choose to test only a specific part of the program using the flag -
 * -f simple: Lists of size 3 and 5
 * -f middle: Lists of size 100
 * -f advanced: Lists of size 500
+
+### Test Log
+You can see the test log into the folder "log_error"
+```bash
+$ cd log_error
+```
+And choose the number of numbers tested into the folders "five", "hundred" and "five_hundred"<br>
+Then, you can use the command cat to see the content log
+```bash
+$ ls
+five hundred five_hundred
+$ cd five
+$ ls
+test_0 test_5
+$ cat test_0
+Random list of Five numbers
+2 0 1 3 4
+sa
+pb
+pa
+sa
+Qtt commands = 4
+Test Checker = KO
+```

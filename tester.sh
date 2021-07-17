@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: cpereira <cpereira@student.42sp.org>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/06/08 10:33:17 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/07/17 14:36:28 by cpereira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,12 @@ BLUE="\033[0;34m"
 MUTED="\033[1;30m"
 RESET="\033[0m"
 BOLD="\033[1m"
+
+rm -rf log_error
+mkdir log_error
+mkdir log_error/five
+mkdir log_error/hundred
+mkdir log_error/five_hundred
 
 FLAG=all
 while getopts f:n: flag
@@ -117,11 +123,23 @@ checker5()
 random_checker()
 {
 	echo -e "${RESET}$1"
+	if (($3 == 12)) ;
+		then
+		FILE="log_error/five/test_"
+		fi
+	if (($3 == 1500));
+		then
+		FILE="log_error/hundred/test_"
+		fi
+	if (($3 == 11500));
+		then
+		FILE="log_error/five_hundred/test_"
+		fi
 	ERR=0
 	sum=0
 	count=0
 	for ((i = 0; i < NUM_TESTS; i++))
-		do 
+		do
 			ARG=`ruby -e "puts $2.to_a.shuffle.join(' ')"`
 			if (( $CKER == 1))
 			then
@@ -132,6 +150,14 @@ random_checker()
 				then
 				((ERR++))
 				echo -en "${RED}▓$RET2▓${RESET}"
+				echo "$1" > $FILE$i
+				echo "$ARG" >> $FILE$i
+				if (($3 == 12))
+					then
+					COMMANDS= $PUSH_SWAP $ARG >> $FILE$i
+					fi
+				echo "Qtt commands = $RET2" >> $FILE$i
+				echo "Test Checker = $RET_CKER" >> $FILE$i
 			else
 				echo -en "${GREEN}▓${RESET}"
 			fi
