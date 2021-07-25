@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    tester.sh                                          :+:      :+:    :+:    #
+#    tester1.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cpereira <cpereira@student.42sp.org>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/07/17 14:36:28 by cpereira         ###   ########.fr        #
+#    Updated: 2021/07/25 21:55:41 by pcunha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,6 @@ do
 		n) NUM_TESTS=${OPTARG};;
 	esac
 done
-
-if ! command -v ruby &> /dev/null
-then
-	echo -e "${RED}${BOLD}Ruby not found. Aborting"
-	echo -e "If using Linux, try 'sudo apt-get install ruby' to install${RESET}"
-	exit
-fi
 
 if [ "$(eval uname)" == "Linux" ]
 then
@@ -123,7 +116,7 @@ checker5()
 random_checker()
 {
 	echo -e "${RESET}$1"
-	if (($3 == 12)) ;
+	if (($3 == 12));
 		then
 		FILE="log_error/five/test_"
 		fi
@@ -140,7 +133,9 @@ random_checker()
 	count=0
 	for ((i = 0; i < NUM_TESTS; i++))
 		do
-			ARG=`ruby -e "puts $2.to_a.shuffle.join(' ')"`
+			unset n
+			n=$4
+			ARG=$(seq 1 $n | awk '{print $1 - a}' a=$(expr $n / 2) | shuf | tr '\n' ' ')
 			if (( $CKER == 1))
 			then
 				RET_CKER=`$PUSH_SWAP $ARG | $CHECKER $ARG`
@@ -158,7 +153,7 @@ random_checker()
 					fi
 				echo "Qtt commands = $RET2" >> $FILE$i
 				echo "Test Checker = $RET_CKER" >> $FILE$i
-			else
+		else
 				echo -en "${GREEN}▓${RESET}"
 			fi
 
@@ -199,17 +194,17 @@ if [ "$FLAG" = "all" ] || [ "$FLAG" = "simple" ]; then
 	echo -e "\n${BOLD}Simple version${RESET}\n"
 	checker3 "Three numbers" "2 1 0"
 	checker5 "Five numbers" "1 5 2 4 3"
-	random_checker "Random list of Five numbers" "(0..4)" 12
+	random_checker "Random list of Five numbers" "(0..4)" 12 5
 fi
 
 if [ "$FLAG" = "all" ] || [ "$FLAG" = "middle" ]; then
 	echo -e "\n${BOLD}Middle version${RESET}\n"
 	echo -e "less than 700\t-> 5\nless than 900\t-> 4\nless than 1100\t-> 3\nless than 1300\t-> 2\nless than 1500\t-> 1\n"
-	random_checker "Random list of hundred numbers -50 to 49" "(-50..49)" 1500
+	random_checker "Random list of hundred numbers -50 to 49" "(-50..49)" 1500 100
 fi
 
 if [ "$FLAG" = "all" ] || [ "$FLAG" = "advanced" ]; then
 	echo -e "\n${BOLD}Advanced version${RESET}\n"
 	echo -e "less than 5500\t-> 5\nless than 7000\t-> 4\nless than 8500\t-> 3\nless than 10000\t-> 2\nless than 11500\t-> 1\n"
-	random_checker "Random list of five hundred numbers 0 to 499" "(0..499)" 11500
+	random_checker "Random list of five hundred numbers 0 to 499" "(0..499)" 11500 500
 fi
