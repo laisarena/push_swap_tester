@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    tester1.sh                                         :+:      :+:    :+:    #
+#    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cpereira <cpereira@student.42sp.org>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/07/25 21:55:41 by pcunha           ###   ########.fr        #
+#    Updated: 2021/07/30 15:26:12 by pcunha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,13 @@ do
 	esac
 done
 
+if ! command -v ruby &> /dev/null
+then
+	echo -e "${RED}${BOLD}Ruby not found. Aborting"
+	echo -e "If using Linux, try 'sudo apt-get install ruby' to install${RESET}"
+	exit
+fi
+
 if [ "$(eval uname)" == "Linux" ]
 then
 	CHECKER=./checker_linux
@@ -52,6 +59,16 @@ then
 	echo -en "${RED}${BOLD}\n./checker is not working.\nSo this script will only check the number of operations\n${RESET}"
 	CKER=0
 fi
+
+seq 1 5 | shuf > /dev/null
+if [ $? == 0 ]
+then
+	SHUF_OK=1
+else
+	SHUF_OK=0
+fi
+
+echo $SHUF_OK
 
 error()
 {
@@ -133,9 +150,14 @@ random_checker()
 	count=0
 	for ((i = 0; i < NUM_TESTS; i++))
 		do
-			unset n
-			n=$4
-			ARG=$(seq 1 $n | awk '{print $1 - a}' a=$(expr $n / 2) | shuf | tr '\n' ' ')
+			if [ $SHUF_OK == 1 ]
+			then
+				unset n
+				n=$4
+				ARG=$(seq 1 $n | awk '{print $1 - a}' a=$(expr $n / 2) | shuf | tr '\n' ' ')
+			else
+				ARG=`ruby -e "puts $2.to_a.shuffle.join(' ')"`
+			fi
 			if (( $CKER == 1))
 			then
 				RET_CKER=`$PUSH_SWAP $ARG | $CHECKER $ARG`
