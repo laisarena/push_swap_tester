@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cpereira <cpereira@student.42sp.org>       +#+  +:+       +#+         #
+#    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/07/30 15:26:12 by pcunha           ###   ########.fr        #
+#    Updated: 2021/09/10 08:48:44 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,23 @@ do_noting()
 		echo -e "${RED}Fail${RESET}"
 	else
 		echo -e "${GREEN}Success${RESET}"
+	fi
+}
+
+checker2()
+{
+	echo -en "${RESET}$1 => ${YELLOW} ./push_swap $2 => "
+	ARG="$2"
+	if (( $CKER == 1))
+	then
+		RET_CKER=`$PUSH_SWAP $ARG | $CHECKER $ARG`
+	fi
+	RET2=`$PUSH_SWAP $ARG | wc -l | bc`
+	if [ "$RET_CKER" == "OK" ] && (($RET2 == 1));
+		then
+			echo -e "${GREEN}Success (checker $RET_CKER | $RET2 instructions)${RESET}"
+	else
+		echo -e "${RED}Fail (checker $RET_CKER | $RET2 instructions)${RESET}"
 	fi
 }
 
@@ -214,6 +231,7 @@ fi
 
 if [ "$FLAG" = "all" ] || [ "$FLAG" = "simple" ]; then
 	echo -e "\n${BOLD}Simple version${RESET}\n"
+	checker2 "Two numbers" "2 1"
 	checker3 "Three numbers" "2 1 0"
 	checker5 "Five numbers" "1 5 2 4 3"
 	random_checker "Random list of Five numbers" "(0..4)" 12 5
