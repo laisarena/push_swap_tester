@@ -6,6 +6,9 @@ Script to test Push Swap project
 ### Usage
 
 ```bash
+git clone git@github.com:laisarena/push_swap_tester.git
+cd push_swap_tester
+cp ../path_to_push_swap_folder/push_swap .
 bash tester.sh
 ```
 
