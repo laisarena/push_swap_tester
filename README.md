@@ -5,10 +5,13 @@ Script to test Push Swap project
 
 ### Usage
 
+In the root of your push_swap project, execute the following:
+
 ```bash
-git clone git@github.com:laisarena/push_swap_tester.git
-cd push_swap_tester
-cp ../path_to_push_swap_folder/push_swap .
+# Download our script using wget
+wget https://raw.githubusercontent.com/laisarena/push_swap_tester/main/tester.sh
+
+# Execute our testing script
 bash tester.sh
 ```
 
